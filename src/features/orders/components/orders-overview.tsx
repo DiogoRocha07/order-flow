@@ -2,9 +2,10 @@
 
 import { OrderDashboard } from "@/features/orders/components/order-dashboard";
 import { useOrders } from "@/features/orders/hooks/use-orders";
+import { OrderTable } from "@/features/orders/components/order-table";
 
 export function OrdersOverview() {
-  const { stats, isLoading, error } = useOrders();
+  const { orders, stats, isLoading, error } = useOrders();
 
   if (isLoading) {
     return (
@@ -32,5 +33,11 @@ export function OrdersOverview() {
     return null;
   }
 
-  return <OrderDashboard stats={stats} />;
+  return (
+    <div className='space-y-8'>
+      <OrderDashboard stats={stats} />
+
+      <OrderTable orders={orders} />
+    </div>
+  );
 }
