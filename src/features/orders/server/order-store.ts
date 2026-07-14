@@ -23,7 +23,9 @@ export function updateOrderStatus(
 ): Order | undefined {
   const orderIndex = orders.findIndex((currentOrder) => currentOrder.id === id);
 
-  if (orderIndex === -1) return undefined;
+  if (orderIndex === -1) {
+    return undefined;
+  }
 
   const updatedOrder: Order = {
     ...orders[orderIndex],
