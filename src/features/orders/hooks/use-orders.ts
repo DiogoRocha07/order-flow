@@ -5,18 +5,23 @@ import {
 } from "@/features/orders/services/orders-api";
 import type { Order, OrderStats } from "@/features/orders/types/order";
 
+type RefetchOrdersOptions = {
+  showLoading?: boolean;
+};
+
 type useOrdersResult = {
   orders: Order[];
   stats: OrderStats | null;
   isLoading: boolean;
   error: string | null;
-  refetch: () => Promise<void>;
+  refetch: (options?: RefetchOrdersOptions) => Promise<void>;
 };
 
 type OrdersData = {
   orders: Order[];
   stats: OrderStats;
 };
+
 async function requestOrdersData(): Promise<OrdersData> {
   const [ordersData, statsData] = await Promise.all([
     fetchOrders(),
@@ -71,21 +76,31 @@ export function useOrders(): useOrdersResult {
     };
   }, []);
 
-  const refetch = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
+  const refetch = useCallback(
+    async (options: RefetchOrdersOptions = {}): Promise<void> => {
+      const { showLoading = true } = options;
 
-    try {
-      const data = await requestOrdersData();
+      if (showLoading) {
+        setIsLoading(true);
+      }
 
-      setOrders(data.orders);
-      setStats(data.stats);
-    } catch (error) {
-      setError(getErrorMessage(error));
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+      setError(null);
+
+      try {
+        const data = await requestOrdersData();
+
+        setOrders(data.orders);
+        setStats(data.stats);
+      } catch (error) {
+        setError(getErrorMessage(error));
+      } finally {
+        if (showLoading) {
+          setIsLoading(false);
+        }
+      }
+    },
+    [],
+  );
 
   return {
     orders,

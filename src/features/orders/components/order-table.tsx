@@ -1,13 +1,22 @@
 import { StatusBadge } from "@/features/orders/components/status-badge";
-import type { Order } from "@/features/orders/types/order";
+import { StatusSelect } from "@/features/orders/components/status-select";
+import type { Order, OrderStatus } from "@/features/orders/types/order";
 import { formatCurrency } from "@/features/orders/utils/format-currency";
 import { formatOrderDate } from "@/features/orders/utils/format-order-date";
 
 type OrderTableProps = {
   orders: readonly Order[];
+  updatingOrderId: string | null;
+  onStatusChange: (orderId: string, status: OrderStatus) => Promise<void>;
 };
 
-export function OrderTable({ orders }: OrderTableProps) {
+export function OrderTable({
+  orders,
+  updatingOrderId,
+  onStatusChange,
+}: OrderTableProps) {
+  const isUpdating = updatingOrderId !== null;
+
   return (
     <section
       aria-labelledby='orders-table-tittle'
@@ -64,7 +73,14 @@ export function OrderTable({ orders }: OrderTableProps) {
                 scope='col'
                 className='px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500'
               >
-                Status
+                Status atual
+              </th>
+
+              <th
+                scope='col'
+                className='px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500'
+              >
+                Alterar status
               </th>
 
               <th
@@ -100,6 +116,25 @@ export function OrderTable({ orders }: OrderTableProps) {
 
                 <td className='whitespace-nowrap px-5 py-4'>
                   <StatusBadge status={order.status} />
+                </td>
+
+                <td className='whitespace-nowrap px-5 py-4'>
+                  <div className='flex flex-col gap-1.5'>
+                    <StatusSelect
+                      orderId={order.id}
+                      status={order.status}
+                      disabled={isUpdating}
+                      onStatusChange={(status) => {
+                        void onStatusChange(order.id, status);
+                      }}
+                    />
+
+                    {updatingOrderId === order.id && (
+                      <span role='status' className='text-xs text-blue-700'>
+                        Atualizando...
+                      </span>
+                    )}
+                  </div>
                 </td>
 
                 <td className='whitespace-nowrap px-5 py-4 text-right text-sm font-semibold tabular-nums text-slate-900'>

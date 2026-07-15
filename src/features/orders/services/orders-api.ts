@@ -1,4 +1,9 @@
-import type { OrderStats, OrdersListData } from "@/features/orders/types/order";
+import type {
+  Order,
+  OrderStats,
+  OrdersListData,
+  OrderStatus,
+} from "@/features/orders/types/order";
 import type { ApiResponse } from "@/lib/http/api-response";
 
 async function parseApiResponse<T>(response: Response): Promise<T> {
@@ -35,4 +40,22 @@ export async function fetchOrdersStats(): Promise<OrderStats> {
   });
 
   return parseApiResponse<OrderStats>(response);
+}
+
+export async function updateOrderStatus(
+  orderId: string,
+  status: OrderStatus,
+): Promise<Order> {
+  const response = await fetch(
+    `/api/orders/${encodeURIComponent(orderId)}/status`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    },
+  );
+
+  return parseApiResponse<Order>(response);
 }
