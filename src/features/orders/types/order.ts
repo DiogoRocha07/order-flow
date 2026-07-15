@@ -28,3 +28,14 @@ export type OrdersListData = {
   orders: Order[];
   total: number;
 };
+
+export type OrderStatusFilter = OrderStatus | "all";
+
+export type OrderFiltersState = {
+  customerName: string;
+  status: OrderStatusFilter;
+  startDate: string;
+  endDate: string;
+}
+
+

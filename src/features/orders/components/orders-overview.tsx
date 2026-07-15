@@ -1,11 +1,21 @@
 "use client";
 
 import { OrderDashboard } from "@/features/orders/components/order-dashboard";
-import { useOrders } from "@/features/orders/hooks/use-orders";
+import { OrderFilters } from "@/features/orders/components/order-filters";
 import { OrderTable } from "@/features/orders/components/order-table";
+import { useOrderFilters } from "@/features/orders/hooks/use-orders-filters";
+import { useOrders } from "@/features/orders/hooks/use-orders";
 
 export function OrdersOverview() {
   const { orders, stats, isLoading, error } = useOrders();
+
+  const {
+    filters,
+    filteredOrders,
+    hasActiveFilters,
+    updateFilter,
+    clearFilters,
+  } = useOrderFilters(orders);
 
   if (isLoading) {
     return (
@@ -37,7 +47,14 @@ export function OrdersOverview() {
     <div className='space-y-8'>
       <OrderDashboard stats={stats} />
 
-      <OrderTable orders={orders} />
+      <OrderFilters
+        filters={filters}
+        hasActiveFilters={hasActiveFilters}
+        onFilterChange={updateFilter}
+        onClearFilters={clearFilters}
+      />
+
+      <OrderTable orders={filteredOrders} />
     </div>
   );
 }
