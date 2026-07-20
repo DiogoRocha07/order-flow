@@ -15,8 +15,6 @@ export function OrderTable({
   updatingOrderId,
   onStatusChange,
 }: OrderTableProps) {
-  const isUpdating = updatingOrderId !== null;
-
   return (
     <section
       aria-labelledby="orders-table-tittle"

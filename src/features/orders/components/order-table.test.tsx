@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import useEvent, { userEvent } from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 
 import { OrderTable } from "@/features/orders/components/order-table";
 import type { Order } from "@/features/orders/types/order";
