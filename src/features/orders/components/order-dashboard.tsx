@@ -12,7 +12,7 @@ export function OrderDashboard({ stats }: OrderDashboardProps) {
       <div className="mb-4">
         <h2
           id="dashboard-title"
-          className="text-x1 font-semibold text-slate-900"
+          className="text-xl font-semibold text-slate-900"
         >
           Resumo dos pedidos
         </h2>

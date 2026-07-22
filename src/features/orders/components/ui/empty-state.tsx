@@ -14,10 +14,10 @@ export function EmptyState({
   const hasAction = actionLabel && onAction;
 
   return (
-    <div className='rounded-x1 border border-dashed border-slate-300 bg-white px-6 py-12 text-center'>
+    <div className='rounded-xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center'>
       <div
         aria-hidden='true'
-        className='mx-auto flex size-12 items-center justify-center rounded-full bg-slate-100 text-x1 text-slate-500'
+        className='mx-auto flex size-12 items-center justify-center rounded-full bg-slate-100 text-xl text-slate-500'
       >
         -
       </div>

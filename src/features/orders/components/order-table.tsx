@@ -18,12 +18,12 @@ export function OrderTable({
   return (
     <section
       aria-labelledby="orders-table-tittle"
-      className="overflow-hidden rounded-x1 border border-slate-200 bg-white shadow-sm"
+      className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
     >
       <div className="border-b border-slate-200 px-5 py-4">
         <h2
           id="orders-table-tittle"
-          className="text-x1 font-semibold text-slate-900"
+          className="text-xl font-semibold text-slate-900"
         >
           Pedidos
         </h2>

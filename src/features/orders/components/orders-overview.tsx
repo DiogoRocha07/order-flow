@@ -77,7 +77,7 @@ export function OrdersOverview() {
       {successMessage && (
         <div
           role='status'
-          className='flex items-start justify-between gap-4 rounded-x1 border border-emerald-200 bg-emerald-50 p-4'
+          className='flex items-start justify-between gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4'
         >
           <p className='text-sm font-medium text-emerald-800'>
             {successMessage}
@@ -96,7 +96,7 @@ export function OrdersOverview() {
       {updateError && (
         <div
           role='alert'
-          className='flex items-start justify-between gap-4 rounded-x1 border border-red-200 bg-red-50 p-4'
+          className='flex items-start justify-between gap-4 rounded-xl border border-red-200 bg-red-50 p-4'
         >
           <div>
             <p className='font-medium text-red-800'>

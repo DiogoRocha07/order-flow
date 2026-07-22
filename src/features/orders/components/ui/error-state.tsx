@@ -14,7 +14,7 @@ export function ErrorState({
   return (
     <div
       role='alert'
-      className='rounded-x1 border border-red-200 bg-red-50 p-6'
+      className='rounded-xl border border-red-200 bg-red-50 p-6'
     >
       <h2 className='font-semibold text-red-900'>{title}</h2>
 

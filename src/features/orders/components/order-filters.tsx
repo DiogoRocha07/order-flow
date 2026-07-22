@@ -23,7 +23,7 @@ export function OrderFilters({
   return (
     <section
       aria-labelledby='order-filters-title'
-      className='rounded-x1 border border-slate-200 bg-white p-5 shadow-sm'
+      className='rounded-xl border border-slate-200 bg-white p-5 shadow-sm'
     >
       <div className='mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
         <div>
