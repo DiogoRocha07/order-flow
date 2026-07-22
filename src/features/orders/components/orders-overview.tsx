@@ -8,7 +8,7 @@ import { LoadingState } from "@/features/orders/components/ui/loading-state";
 import { OrderDashboard } from "@/features/orders/components/order-dashboard";
 import { OrderFilters } from "@/features/orders/components/order-filters";
 import { OrderTable } from "@/features/orders/components/order-table";
-import { useOrderFilters } from "@/features/orders/hooks/use-orders-filters";
+import { useOrderFilters } from "@/features/orders/hooks/use-order-filters";
 import { useOrders } from "@/features/orders/hooks/use-orders";
 import { useUpdateOrderStatus } from "@/features/orders/hooks/use-update-order-status";
 
@@ -44,13 +44,13 @@ export function OrdersOverview() {
   } = useUpdateOrderStatus({ onUpdated: refreshAfterStatusUpdate });
 
   if (isLoading) {
-    return <LoadingState message='Carregando pedidos' />;
+    return <LoadingState message="Carregando pedidos" />;
   }
 
   if (error) {
     return (
       <ErrorState
-        title='Não foi possivel carregar os pedidos.'
+        title="Não foi possível carregar os pedidos."
         message={error}
         onRetry={retryOrders}
       />
@@ -60,8 +60,8 @@ export function OrdersOverview() {
   if (!stats) {
     return (
       <ErrorState
-        title='Os dados do dashboard estão indisponíveis.'
-        message='As estatísticas dos pedidos não foram retornadas corretamente.'
+        title="Os dados do dashboard estão indisponíveis."
+        message="As estatísticas dos pedidos não foram retornadas corretamente."
         onRetry={retryOrders}
       />
     );
@@ -71,22 +71,22 @@ export function OrdersOverview() {
   const hasVisibleOrders = filteredOrders.length > 0;
 
   return (
-    <div className='space-y-8'>
+    <div className="space-y-8">
       <OrderDashboard stats={stats} />
 
       {successMessage && (
         <div
-          role='status'
-          className='flex items-start justify-between gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4'
+          role="status"
+          className="flex items-start justify-between gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4"
         >
-          <p className='text-sm font-medium text-emerald-800'>
+          <p className="text-sm font-medium text-emerald-800">
             {successMessage}
           </p>
 
           <button
-            type='button'
+            type="button"
             onClick={clearFeedback}
-            className='text-sm font-medium text-emerald-800 hover:underline cursor-pointer'
+            className="text-sm font-medium text-emerald-800 hover:underline cursor-pointer"
           >
             Fechar
           </button>
@@ -95,21 +95,21 @@ export function OrdersOverview() {
 
       {updateError && (
         <div
-          role='alert'
-          className='flex items-start justify-between gap-4 rounded-xl border border-red-200 bg-red-50 p-4'
+          role="alert"
+          className="flex items-start justify-between gap-4 rounded-xl border border-red-200 bg-red-50 p-4"
         >
           <div>
-            <p className='font-medium text-red-800'>
+            <p className="font-medium text-red-800">
               Não foi possível alterar o status.
             </p>
 
-            <p className='mt-1 text-sm text-red-700'>{updateError}</p>
+            <p className="mt-1 text-sm text-red-700">{updateError}</p>
           </div>
 
           <button
-            type='button'
+            type="button"
             onClick={clearFeedback}
-            className='text-sm font-medium text-red-800 hover:underline cursor-pointer'
+            className="text-sm font-medium text-red-800 hover:underline cursor-pointer"
           >
             Fechar
           </button>

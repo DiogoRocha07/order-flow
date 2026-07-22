@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 
-import { useOrderFilters } from "@/features/orders/hooks/use-orders-filters";
+import { useOrderFilters } from "@/features/orders/hooks/use-order-filters";
 import type { Order } from "@/features/orders/types/order";
 
 const orders: Order[] = [
