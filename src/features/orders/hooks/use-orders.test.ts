@@ -256,4 +256,39 @@ describe("useOrders", () => {
     expect(result.current.stats).toEqual(updatedStats);
     expect(result.current.error).toBeNull();
   });
+
+  it("mantém os dados anteriores e exibe o erro quando o refetch falha", async () => {
+    mockedFetchOrders
+      .mockResolvedValueOnce(ordersData)
+      .mockRejectedValueOnce(
+        new Error("Não foi possível atualizar os pedidos."),
+      );
+
+    mockedFetchOrdersStats
+      .mockResolvedValueOnce(stats)
+      .mockResolvedValueOnce(stats);
+
+    const { result } = renderHook(() => useOrders());
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.orders).toEqual(orders);
+    expect(result.current.stats).toEqual(stats);
+
+    await act(async () => {
+      await result.current.refetch();
+    });
+
+    expect(result.current.isLoading).toBe(false);
+
+    expect(result.current.error).toBe("Não foi possível atualizar os pedidos.");
+
+    expect(result.current.orders).toEqual(orders);
+    expect(result.current.stats).toEqual(stats);
+
+    expect(mockedFetchOrders).toHaveBeenCalledTimes(2);
+    expect(mockedFetchOrdersStats).toHaveBeenCalledTimes(2);
+  });
 });

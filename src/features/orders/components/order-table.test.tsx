@@ -114,4 +114,26 @@ describe("OrderTable", () => {
 
     expect(screen.getByText("Atualizando...")).toBeInTheDocument();
   });
+
+  it("utiliza o singular quando o pedido possui apenas um item", () => {
+    const orderWithOneItem: Order = {
+      id: "ORD-1003",
+      customerName: "Carlos Lima",
+      total: 80,
+      status: "pending",
+      createdAt: "2026-07-03T12:00:00.000Z",
+      itemCount: 1,
+    };
+
+    render(
+      <OrderTable
+        orders={[orderWithOneItem]}
+        updatingOrderId={null}
+        onStatusChange={onStatusChange}
+      />,
+    );
+
+    expect(screen.getByText("1 item")).toBeInTheDocument();
+    expect(screen.queryByText("1 itens")).not.toBeInTheDocument();
+  });
 });
